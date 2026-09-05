@@ -1,10 +1,10 @@
-package com.example.questionme;
+package com.example.authorization;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class QuestionmeApplicationTests {
+class AuthorizationApplicationTests {
 
 	@Test
 	void contextLoads() {
