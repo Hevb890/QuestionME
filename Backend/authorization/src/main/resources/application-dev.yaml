@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/knowledge_auth_db
-    username: postgres
-    password: postgres
+    username: hevindutilakasena
+    password: ""
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -28,7 +28,8 @@ spring:
       port: 6379
 
 logging:
-  level: INFO
-  om.platform.auth: DEBUG
-  org.springframework.security: DEBUG
-  org.springframework.security.oauth2: TRACE
+  level:
+    root: INFO
+    om.platform.auth: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: TRACE
