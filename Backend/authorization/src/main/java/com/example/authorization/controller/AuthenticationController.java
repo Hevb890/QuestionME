@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestController
+@RestController
 @RequestMapping("/api/v1/auth")
-@RequestArgsConstructor
+@RequiredArgsConstructor
 public class AuthenticationController {
-    private final AuthentiactionService authenticationService;
+    private final AuthenticationService authenticationService;
     
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request){

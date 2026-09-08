@@ -10,7 +10,7 @@ CREATE TABLE users (
 CREATE TABLE user_roles (
     user_id BIGINT NOT NULL,
     user_role VARCHAR(50) NOT NULL,
-    PRIMARY KEY (user_id, role),
+    PRIMARY KEY (user_id, user_role),
     CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 

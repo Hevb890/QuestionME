@@ -13,9 +13,9 @@ server:
 app:
   jwt:
     issuer: ${JWT_ISSUER:http://localhost:8080}
-    access-token-expiration-ms: 900000
-    refresh-token-expiration-ms: 604800000
+    # access-token-expiration-ms: 900000
+    # refresh-token-expiration-ms: 604800000
   keystore:
-    location: ${KEYSTORE_LOCATION:classpath:certs/jwt-keystore.jks}
-    password: ${KEYSTORE_PASSWORD:secret}
-    alias: ${KEYSTORE_ALIAS:auth-key}
+    location: ${KEYSTORE_LOCATION:classpath:certs/dev-keystore.p12}
+    password: ${KEYSTORE_PASSWORD:localDevPassword123!}
+    alias: ${KEYSTORE_ALIAS:auth-dev-key}

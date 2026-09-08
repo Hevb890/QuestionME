@@ -7,6 +7,9 @@ import com.example.authorization.entity.User;
 import com.example.authorization.repository.UserRepository;
 import com.example.authorization.security.JwtService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +30,7 @@ public class AuthenticationService {
         User user = User.builder()
             .email(request.email())
             .password(passwordEncoder.encode(request.password()))
-            .role(Role.USER)
+            .roles(List.of(Role.USER))
             .build();
         
         userRepository.save(user);
