@@ -1,3 +1,21 @@
 spring:
   application:
     name: question
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /
+  forward-headers-stratergy: native
+
+app:
+  jwt:
+    issuer: ${JWT_ISSUER:http://localhost:8080}
+    # access-token-expiration-ms: 900000
+    # refresh-token-expiration-ms: 604800000
+  keystore:
+    location: ${KEYSTORE_LOCATION:classpath:certs/dev-keystore.p12}
+    password: ${KEYSTORE_PASSWORD:localDevPassword123!}
+    alias: ${KEYSTORE_ALIAS:auth-dev-key}
