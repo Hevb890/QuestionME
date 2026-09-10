@@ -1,0 +1,38 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          "[/**]":
+            allowedOrigins:
+              - "${ALLOWED_ORIGIN:https://yourdomain.com}"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+
+      routes:
+        - id: authorization-service-prod
+          uri: ${AUTH_SERVICE_URI:http://authorization-service:8081}
+          predicates:
+            - Path=/api/v1/auth/**, /.well-known/jwks.json
+
+        - id: question-service-prod
+          uri: ${QUESTION_SERVICE_URI:http://question-service:8082}
+          predicates:
+            - Path=/api/v1/questions/**
+
+logging:
+  level:
+    root: WARN
+    org.springframework.cloud.gateway: INFO
