@@ -1,7 +1,8 @@
 package com.example.authorization.service;
 
-import com.example.authorization.dto.AuthResponse;
+import com.example.authorization.dto.AuthenticationResponse;
 import com.example.authorization.dto.RegisterRequest;
+import com.example.authorization.dto.LoginRequest;
 import com.example.authorization.entity.Role;
 import com.example.authorization.entity.User;
 import com.example.authorization.repository.UserRepository;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +23,10 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     @Transactional
-    public AuthResponse register(RegisterRequest request){
+    public AuthenticationResponse register(RegisterRequest request){
         if(userRepository.existsByEmail(request.email())){
             throw new IllegalArgumentException("Email address is already in use.");
         }
@@ -36,6 +40,21 @@ public class AuthenticationService {
         userRepository.save(user);
 
         String jwtToken = jwtService.generateToken(user);
-        return new AuthResponse(jwtToken, user.getEmail());
+        return new AuthenticationResponse(jwtToken);
+    }
+
+    public AuthenticationResponse login(LoginRequest request){
+        var authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                request.getEmail(),
+                request.getPassword()
+            )
+        );
+
+        User user = (User) authentication.getPrincipal();
+
+        String jwtToken = jwtService.generateToken(user);
+        return new AuthenticationResponse(jwtToken);
+
     }
 }

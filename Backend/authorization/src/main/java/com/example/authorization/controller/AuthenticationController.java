@@ -1,7 +1,8 @@
 package com.example.authorization.controller;
 
-import com.example.authorization.dto.AuthResponse;
+import com.example.authorization.dto.AuthenticationResponse;
 import com.example.authorization.dto.RegisterRequest;
+import com.example.authorization.dto.LoginRequest;
 import com.example.authorization.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,15 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request){
-        AuthResponse response = authenticationService.register(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest request){
+        AuthenticationResponse response = authenticationService.register(request);
+        return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody LoginRequest request){
+        AuthenticationResponse response = authenticationService.login(request);
+        return ResponseEntity.ok(response);
+    }
+
 }
