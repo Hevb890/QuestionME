@@ -1,0 +1,133 @@
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # Database 1: Authorization Service Database
+  # ---------------------------------------------------------------------------
+  auth-db:
+    image: postgres:15-alpine
+    container_name: auth-db
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5431:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+    networks:
+      - microservies-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d auth_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Database 2: Question Service Database
+  # ---------------------------------------------------------------------------
+  question-db:
+    image: postgres:15-alpine
+    container_name: question-db
+    environment:
+      POSTGRES_DB: question_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - question_db_data:/var/lib/postgresql/data
+    networks:
+      - microservies-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d question_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  
+  # ---------------------------------------------------------------------------
+  # Service 1: Authorization Service
+  # ---------------------------------------------------------------------------
+  authorization-service:
+    build:
+      context: ./authorization
+      dockerfile: Dockerfile
+    container_name: authorization-service
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:postgresql://auth-db:5432/auth_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgrespassword
+      JWT_ISSUER: http://localhost:8080
+      KEYSTORE_LOCATION: classpath:certs/dev-keystore.p12 # CHECK THIS PATH
+      KEYSTORE_PASSWORD: localDevPassword123!
+      KEYSTORE_ALIAS: auth-dev-key
+    ports:
+      - "8081:8081"
+    depends_on:
+      auth_db:
+        conditions: service_healthy
+      networks:
+       - microservies-net
+      healthcheck:
+        test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8081/.well-known/jwks.json"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Service 2: Question Service
+  # ---------------------------------------------------------------------------
+  question-service:
+    build:
+      context: ./question
+      dockerfile: Dockerfile
+    container_name: question-service
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SERVER_PORT: 8082
+      DB_URL: jdbc:postgresql://question-db:5432/question_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgrespassword
+      AUTH_SERVICE_JWKS_URI: http://authorization-service:8081/.well-known/jwks.json
+    ports:
+      - "8082:8082"
+    depends_on:
+      question-db:
+        condition: service_healthy
+      authorization-service:
+        condition: service_healthy
+    networks:
+      - microservices-net
+
+  # ---------------------------------------------------------------------------
+  # Service 3: API Gateway
+  # ---------------------------------------------------------------------------
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SERVER_PORT: 8080
+      AUTH_SERVICE_URI: http://authorization-service:8081
+      QUESTION_SERVICE_URI: http://question-service:8082
+    ports:
+      - "8080:8080"
+    depends_on:
+      - authorization-service
+      - question-service
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
+
+volumes:
+  auth_db_data:
+  question_db_data:
+
+    
