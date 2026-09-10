@@ -33,3 +33,10 @@ build/
 .vscode/
 
 .mvn/
+.env
+*.p12
+*.jks
+
+.mvn/
+
+/src/main/resources/certs/
