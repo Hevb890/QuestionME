@@ -33,11 +33,3 @@ build/
 .vscode/
 
 .mvn/
-
-/src/main/resources/certs/
-
-# Local security configurations
-.env
-*.p12
-*.jks
-
