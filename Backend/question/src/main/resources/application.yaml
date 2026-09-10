@@ -8,7 +8,7 @@ server:
   port: ${SERVER_PORT:8081}
   servlet:
     context-path: /
-  forward-headers-stratergy: native
+  forward-headers-strategy: native
 
 # app:
 #   jwt:
