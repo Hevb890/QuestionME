@@ -1,4 +1,4 @@
-package com.company.questionservice.question.dto;
+package com.example.question.dto;
 
 import java.time.LocalDateTime;
 

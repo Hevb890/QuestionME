@@ -1,8 +1,8 @@
-package com.company.questionservice.question.controller;
+package com.example.question.controller;
 
-import com.company.questionservice.question.dto.CreateQuestionRequest;
-import com.company.questionservice.question.dto.QuestionResponse;
-import com.company.questionservice.question.service.QuestionService;
+import com.example.question.dto.CreateQuestionRequest;
+import com.example.question.dto.QuestionResponse;
+import com.example.question.service.QuestionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

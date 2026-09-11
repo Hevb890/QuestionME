@@ -1,4 +1,4 @@
-package com.company.questionservice.question.dto;
+package com.example.question.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
