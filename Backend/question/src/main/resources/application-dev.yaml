@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/knowledge_auth_db
-    username: hevindutilakasena
-    password: ""
+    url: ${DB_URL:jdbc:postgresql://question-db:5432/question_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgrespassword}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
