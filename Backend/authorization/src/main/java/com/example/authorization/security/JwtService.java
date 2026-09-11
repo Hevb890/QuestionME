@@ -66,7 +66,7 @@ public class JwtService {
             
         } catch (Exception e) {
             System.err.println("CRITICAL FAILURE ON INITIALIZATION:");
-            e.printStackTrace(); // This prints the exact exception sequence to the terminal
+            e.printStackTrace(); 
             throw new IllegalStateException("Could not load private key from keystore path: " + keystoreLocation, e);
         }
     }
