@@ -1,6 +1,6 @@
-package com.company.questionservice.question.repository;
+package com.example.question.repository;
 
-import com.company.questionservice.question.entity.Questions;
+import com.example.question.entity.Questions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

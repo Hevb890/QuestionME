@@ -1,9 +1,9 @@
-package com.company.questionservice.question.service;
+package com.example.question.service;
 
-import com.company.questionservice.question.dto.CreateQuestionRequest;
-import com.company.questionservice.question.dto.QuestionResponse;
-import com.company.questionservice.question.entity.Questions;
-import com.company.questionservice.question.repository.QuestionRepository;
+import com.example.question.dto.CreateQuestionRequest;
+import com.example.question.dto.QuestionResponse;
+import com.example.question.entity.Questions;
+import com.example.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
