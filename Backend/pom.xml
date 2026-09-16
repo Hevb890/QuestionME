@@ -11,8 +11,8 @@
 
     <modules>
         <module>common-rate-limiter</module>
-        <module>auth-service</module>
-        <module>question-service</module>
+        <module>authorization</module>
+        <module>question</module>
     </modules>
 
     <parent>
