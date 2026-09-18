@@ -1,6 +1,7 @@
-"user server"
+"use server"
 
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export async function handleLogin(prevState: any, formData: FormData) {
     const email = formData.get('email') as string
@@ -24,5 +25,5 @@ export async function handleLogin(prevState: any, formData: FormData) {
         path: '/',
     })
 
-    return {success: true}
+    redirect('/register') // Need to change this to dashboard or home page after login. For now, redirecting to register page for testing purposes.
 }
