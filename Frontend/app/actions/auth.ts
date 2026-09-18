@@ -25,5 +25,5 @@ export async function handleLogin(prevState: any, formData: FormData) {
         path: '/',
     })
 
-    redirect('/register') // Need to change this to dashboard or home page after login. For now, redirecting to register page for testing purposes.
+    redirect('/register') // Need to change this to dashboard or home page after login. For now, redirecting to register page for testing purposes..
 }
