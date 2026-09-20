@@ -1,0 +1,28 @@
+{
+  "node": {
+    "601c87618c88360dc731be0a6bb89eef33b3df49e9": {
+      "workers": {
+        "app/login/page": {
+          "moduleId": "[project]/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/auth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "codeHash": null
+        }
+      },
+      "filename": "app/actions/auth.ts",
+      "exportedName": "handleLogin"
+    },
+    "60e170acc7a16582b739e71c1c56bd3c730ab087c4": {
+      "workers": {
+        "app/register/page": {
+          "moduleId": "[project]/.next-internal/server/app/register/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/auth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "codeHash": null
+        }
+      },
+      "filename": "app/actions/auth.ts",
+      "exportedName": "handleRegister"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "UVyaEnMc+MVl4IHq63L80EqgX1Azvtp14Hn5uRqLMFg="
+}
