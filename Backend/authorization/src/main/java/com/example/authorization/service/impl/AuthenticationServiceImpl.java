@@ -1,4 +1,4 @@
-package com.example.authorization.service;
+package com.example.authorization.service.impl;
 
 import com.example.authorization.dto.AuthenticationResponse;
 import com.example.authorization.dto.RegisterRequest;
@@ -7,6 +7,8 @@ import com.example.authorization.entity.Role;
 import com.example.authorization.entity.User;
 import com.example.authorization.repository.UserRepository;
 import com.example.authorization.security.JwtService;
+import com.example.authorization.service.IAuthenticationService;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -19,13 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements IAuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     @Transactional
+    @Override 
     public AuthenticationResponse register(RegisterRequest request){
         if(userRepository.existsByEmail(request.email())){
             throw new IllegalArgumentException("Email address is already in use.");
@@ -43,6 +46,7 @@ public class AuthenticationService {
         return new AuthenticationResponse(jwtToken);
     }
 
+    @Override 
     public AuthenticationResponse login(LoginRequest request){
         var authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
