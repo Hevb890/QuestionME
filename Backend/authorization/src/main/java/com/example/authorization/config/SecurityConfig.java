@@ -35,7 +35,7 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/auth/**", "/.well-known/jwks.json").permitAll()
+                .requestMatchers("/api/v1/auth/**","/api/v1/auth/verify-otp","/api/v1/auth/forget-password", "/.well-known/jwks.json", "/error").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> 
