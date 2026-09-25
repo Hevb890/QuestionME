@@ -63,6 +63,8 @@ services:
       KEYSTORE_LOCATION: classpath:certs/dev-keystore.p12 # CHECK THIS PATH
       KEYSTORE_PASSWORD: localDevPassword123!
       KEYSTORE_ALIAS: auth-dev-key
+      MAIL_USERNAME: hevinduharshana@gmail.com
+      MAIL_PASSWORD: nems fplo ubel qpqc
     ports:
       - "8081:8081"
     depends_on:

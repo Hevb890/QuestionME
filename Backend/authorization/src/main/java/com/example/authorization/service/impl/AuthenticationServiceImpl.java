@@ -2,6 +2,7 @@ package com.example.authorization.service.impl;
 
 import com.example.authorization.dto.AuthenticationResponse;
 import com.example.authorization.dto.RegisterRequest;
+import com.example.authorization.dto.ResetPasswordRequestDTO;
 import com.example.authorization.dto.LoginRequest;
 import com.example.authorization.entity.Role;
 import com.example.authorization.entity.User;
@@ -60,5 +61,22 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         String jwtToken = jwtService.generateToken(user);
         return new AuthenticationResponse(jwtToken);
 
+    }
+
+    @Transactional 
+    @Override 
+    public String resetPassword(ResetPasswordRequestDTO request){
+        if(!request.newPassword().equals(request.confirmPassword())){
+            throw new IllegalArgumentException("Passwords do not match");
+        }
+        
+        User user = userRepository.findByEmail(request.email())
+            .orElseThrow(() -> new IllegalArgumentException("User with this email does not exist."));
+
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
+
+        userRepository.save(user);
+
+        return "Password Updated Successfully.";
     }
 }
