@@ -40,13 +40,13 @@ export default function LoginPage() {
                                 <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
                               </div>
                           </div>
-                          <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+                          <Link href="/login/forget-password" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</Link>
                       </div>
                       <button type="submit" disabled={isPending} className="w-full text-white bg-primary-600 hover:bg-primary-300 hover:text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         {isPending ? 'Signing in...' : 'Sign in'}
                       </button>
                       <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
-                          Don’t have an account yet?
+                          Don’t have an account yet? 
                               <Link 
                                 href="/register" 
                                 className="font-medium text-primary-600 hover:underline dark:text-primary-500"
