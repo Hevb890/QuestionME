@@ -1,4 +1,6 @@
+"user server"
 
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function handleRegister(prevState: any, formData: FormData) {
@@ -26,6 +28,14 @@ export async function handleRegister(prevState: any, formData: FormData) {
         if (!response.ok) {
             return { error: data.message || "Registration failed" }
         }
+        const cookieStore = await cookies()
+        cookieStore.set("reset_email", email, {
+            httpOnly: true, 
+            secure: true,
+            sameSite: 'strict',
+            maxAge: 15 * 60,
+            path: '/',
+        })
 
     }catch (error) {
         return { error: "An error occurred during registration" }
